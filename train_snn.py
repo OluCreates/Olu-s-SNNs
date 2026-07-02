@@ -31,3 +31,4 @@ class SNN(nn.Module):
         pass
 mem1 = self.lif1.init_leaky()
 mem2 = self.lif2.init_leaky()
+spk_out = []
