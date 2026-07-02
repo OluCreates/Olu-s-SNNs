@@ -29,3 +29,5 @@ class SNN(nn.Module):
 
     def forward(self, x):
         pass
+mem1 = self.lif1.init_leaky()
+mem2 = self.lif2.init_leaky()
