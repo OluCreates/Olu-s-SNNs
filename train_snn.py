@@ -37,3 +37,4 @@ for t in range(num_steps):
     cur2 = self.fc2(spk1)
     spk2, mem2 = self.lif2(cur2, mem2)
     spk_out.append(spk2)   #save output spike
+    return torch.stack(spk_out, dim=0)
