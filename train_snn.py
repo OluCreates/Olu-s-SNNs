@@ -22,13 +22,18 @@ test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False)
 class SNN(nn.Module):
     def __init__(self):
         super().__init__()
-      self.fc1 = nn.Linear(784, 256)
-        self.lif1 = snn.Leaky(beta=0.9, spike_grad=surrogate.fast_sigmoid())
-        self.fc2 = nn.Linear(256, 10)
+      self.fc1 = nn.Linear(784, 256) #28x28 pixels     
+        self.lif1 = snn.Leaky(beta=0.9, spike_grad=surrogate.fast_sigmoid())   
+        self.fc2 = nn.Linear(256, 10)  #10 outputs
         self.lif2 = snn.Leaky(beta=0.9, spike_grad=surrogate.fast_sigmoid())
 
     def forward(self, x):
-        pass
 mem1 = self.lif1.init_leaky()
 mem2 = self.lif2.init_leaky()
 spk_out = []
+for t in range(num_steps):
+    cur1 = self.fc1(x) #calc current to pass into first batch of Leaky neurons
+    spk1, mem1 = self.lif1(cur1, mem1) #keep track and add our membrane poten
+    cur2 = self.fc2(spk1)
+    spk2, mem2 = self.lif2(cur2, mem2)
+    spk_out.append(spk2)   #save output spike
